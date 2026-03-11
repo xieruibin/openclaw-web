@@ -3,7 +3,7 @@ import Button from './ui/Button';
 import Container from './ui/Container';
 
 const navItems = [
-  { label: '贪吃蛇', href: '/snake', isGame: true },
+  { label: '贪吃蛇', href: '#snake', isGame: true },
   { label: '能力矩阵', href: '#services' },
   { label: '交付方式', href: '#about' },
   { label: '联系咨询', href: '#contact' },
