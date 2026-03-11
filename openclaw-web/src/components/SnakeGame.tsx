@@ -166,9 +166,9 @@ export default function SnakeGame() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 py-20">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 py-8 lg:py-20">
       <div className="container mx-auto px-4">
-        <div className="mb-8 text-center">
+        <div className="mb-4 lg:mb-8 text-center">
           <a
             href="#home"
             className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition mb-4"
@@ -178,19 +178,19 @@ export default function SnakeGame() {
             </svg>
             返回首页
           </a>
-          <h1 className="text-4xl font-bold text-white mb-2">🐍 贪吃蛇</h1>
-          <p className="text-slate-400">使用方向键或 WASD 控制，空格键暂停/继续</p>
+          <h1 className="text-3xl lg:text-4xl font-bold text-white mb-2">🐍 贪吃蛇</h1>
+          <p className="text-slate-400 text-sm lg:text-base">使用方向键或 WASD 控制，空格键暂停/继续</p>
         </div>
 
-        <div className="flex flex-col lg:flex-row items-center justify-center gap-8">
+        <div className="flex flex-col items-center justify-center gap-4 lg:gap-8">
           {/* 游戏区域 */}
-          <div className="relative">
+          <div className="relative order-1">
             <div 
               className="grid gap-px bg-slate-800/50 p-2 rounded-xl border-2 border-purple-500/50 shadow-2xl shadow-purple-500/20"
               style={{
                 gridTemplateColumns: `repeat(${GRID_SIZE}, 1fr)`,
-                width: 'min(80vw, 500px)',
-                height: 'min(80vw, 500px)',
+                width: 'min(85vw, 400px)',
+                height: 'min(85vw, 400px)',
               }}
             >
               {Array.from({ length: GRID_SIZE * GRID_SIZE }).map((_, index) => {
@@ -254,8 +254,48 @@ export default function SnakeGame() {
             )}
           </div>
 
-          {/* 侧边信息面板 */}
-          <div className="flex flex-col gap-6 w-full lg:w-64">
+          {/* 移动端控制按钮 - 紧挨游戏区域下方 */}
+          <div className="lg:hidden order-3 mt-2">
+            <div className="grid grid-cols-3 gap-3 max-w-[220px] mx-auto">
+              <div />
+              <button
+                onClick={() => handleDirectionClick('UP')}
+                className="aspect-square bg-slate-800/90 hover:bg-purple-600 active:bg-purple-500 rounded-xl text-3xl text-white transition shadow-lg"
+              >
+                ↑
+              </button>
+              <div />
+              <button
+                onClick={() => handleDirectionClick('LEFT')}
+                className="aspect-square bg-slate-800/90 hover:bg-purple-600 active:bg-purple-500 rounded-xl text-3xl text-white transition shadow-lg"
+              >
+                ←
+              </button>
+              <button
+                onClick={() => setIsPaused(prev => !prev)}
+                className="aspect-square bg-slate-800/90 hover:bg-yellow-600 active:bg-yellow-500 rounded-xl text-lg text-white transition shadow-lg"
+              >
+                {isPaused ? '▶' : '⏸'}
+              </button>
+              <button
+                onClick={() => handleDirectionClick('RIGHT')}
+                className="aspect-square bg-slate-800/90 hover:bg-purple-600 active:bg-purple-500 rounded-xl text-3xl text-white transition shadow-lg"
+              >
+                →
+              </button>
+              <div />
+              <button
+                onClick={() => handleDirectionClick('DOWN')}
+                className="aspect-square bg-slate-800/90 hover:bg-purple-600 active:bg-purple-500 rounded-xl text-3xl text-white transition shadow-lg"
+              >
+                ↓
+              </button>
+              <div />
+            </div>
+          </div>
+
+          {/* 侧边信息面板 - 桌面端显示 */}
+          <div className="hidden lg:flex flex-col gap-6 w-64 order-2">
             {/* 分数面板 */}
             <div className="bg-slate-800/50 backdrop-blur rounded-xl p-6 border border-slate-700">
               <div className="mb-4">
@@ -285,47 +325,6 @@ export default function SnakeGame() {
               )}
             </div>
 
-            {/* 移动端控制按钮 */}
-            <div className="lg:hidden">
-              <p className="text-slate-400 text-sm mb-3 text-center">方向控制</p>
-              <div className="grid grid-cols-3 gap-2 max-w-[200px] mx-auto">
-                <div />
-                <button
-                  onClick={() => handleDirectionClick('UP')}
-                  className="aspect-square bg-slate-800/80 hover:bg-purple-600 rounded-lg text-2xl text-white transition"
-                >
-                  ↑
-                </button>
-                <div />
-                <button
-                  onClick={() => handleDirectionClick('LEFT')}
-                  className="aspect-square bg-slate-800/80 hover:bg-purple-600 rounded-lg text-2xl text-white transition"
-                >
-                  ←
-                </button>
-                <button
-                  onClick={() => setIsPaused(prev => !prev)}
-                  className="aspect-square bg-slate-800/80 hover:bg-yellow-600 rounded-lg text-sm text-white transition"
-                >
-                  {isPaused ? '▶' : '⏸'}
-                </button>
-                <button
-                  onClick={() => handleDirectionClick('RIGHT')}
-                  className="aspect-square bg-slate-800/80 hover:bg-purple-600 rounded-lg text-2xl text-white transition"
-                >
-                  →
-                </button>
-                <div />
-                <button
-                  onClick={() => handleDirectionClick('DOWN')}
-                  className="aspect-square bg-slate-800/80 hover:bg-purple-600 rounded-lg text-2xl text-white transition"
-                >
-                  ↓
-                </button>
-                <div />
-              </div>
-            </div>
-
             {/* 操作说明 */}
             <div className="bg-slate-800/50 backdrop-blur rounded-xl p-6 border border-slate-700">
               <h3 className="text-white font-semibold mb-3">操作说明</h3>
@@ -347,6 +346,18 @@ export default function SnakeGame() {
                   <span>撞墙或撞自己结束</span>
                 </li>
               </ul>
+            </div>
+          </div>
+
+          {/* 移动端分数显示 */}
+          <div className="lg:hidden order-2 flex gap-4 mt-4">
+            <div className="bg-slate-800/80 backdrop-blur rounded-xl px-6 py-3 border border-slate-700">
+              <p className="text-slate-400 text-xs mb-1">得分</p>
+              <p className="text-2xl font-bold text-green-400">{score}</p>
+            </div>
+            <div className="bg-slate-800/80 backdrop-blur rounded-xl px-6 py-3 border border-slate-700">
+              <p className="text-slate-400 text-xs mb-1">最高</p>
+              <p className="text-2xl font-bold text-yellow-400">🏆 {highScore}</p>
             </div>
           </div>
         </div>
