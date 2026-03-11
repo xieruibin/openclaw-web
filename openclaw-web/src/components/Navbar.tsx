@@ -3,6 +3,7 @@ import Button from './ui/Button';
 import Container from './ui/Container';
 
 const navItems = [
+  { label: '贪吃蛇', href: '/snake', isGame: true },
   { label: '能力矩阵', href: '#services' },
   { label: '交付方式', href: '#about' },
   { label: '联系咨询', href: '#contact' },
@@ -15,7 +16,7 @@ export default function Navbar() {
     <nav className="fixed inset-x-0 top-0 z-50 border-b border-white/60 bg-white/80 backdrop-blur-xl">
       <Container>
         <div className="flex h-20 items-center justify-between">
-          <a href="#home" className="flex items-center gap-3 text-slate-900">
+          <a href="#home" onClick={() => window.location.hash = '#home'} className="flex items-center gap-3 text-slate-900">
             <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-primary-600 via-primary-500 to-accent-500 text-base font-bold text-white shadow-lg shadow-primary-900/20">
               G
             </div>
@@ -27,7 +28,15 @@ export default function Navbar() {
 
           <div className="hidden items-center gap-8 md:flex">
             {navItems.map((item) => (
-              <a key={item.href} href={item.href} className="text-sm font-medium text-slate-600 transition hover:text-primary-600">
+              <a
+                key={item.href}
+                href={item.href}
+                className={`text-sm font-medium transition ${
+                  item.isGame
+                    ? 'text-purple-600 hover:text-purple-700'
+                    : 'text-slate-600 hover:text-primary-600'
+                }`}
+              >
                 {item.label}
               </a>
             ))}
@@ -60,7 +69,11 @@ export default function Navbar() {
                 <a
                   key={item.href}
                   href={item.href}
-                  className="rounded-2xl px-4 py-3 text-sm font-medium text-slate-700 transition hover:bg-primary-50 hover:text-primary-600"
+                  className={`rounded-2xl px-4 py-3 text-sm font-medium transition ${
+                    item.isGame
+                      ? 'text-purple-600 hover:bg-purple-50 hover:text-purple-700'
+                      : 'text-slate-700 hover:bg-primary-50 hover:text-primary-600'
+                  }`}
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item.label}
